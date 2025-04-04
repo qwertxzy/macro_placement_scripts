@@ -7,7 +7,7 @@ import os
 import shutil
 from matplotlib.animation import FuncAnimation
 
-MACRO_HALO_SIZE = 3000
+MACRO_HALO_SIZE = 10000
 
 class MacroPlacementOptimizer:
     def __init__(self, parsed_data, macro_width=100, macro_height=100):
@@ -104,6 +104,11 @@ class MacroPlacementOptimizer:
             # Get color based on macro type
             color = color_map.get(macro_type, 'blue')
             
+            # Maybe this macro has a highlighted field
+            if 'highlighted' in macro and macro['highlighted']:
+                color = 'yellow'
+
+
             # Add rectangle for each macro (origin at lower-left corner)
             rect = patches.Rectangle(
                 coords, 
@@ -267,6 +272,10 @@ class MacroPlacementOptimizer:
                 # Get color based on macro type
                 color = color_map.get(macro_type, 'blue')
                 
+                # Maybe this macro has a highlighted field
+                if 'highlighted' in macro and macro['highlighted']:
+                    color = 'yellow'
+
                 # Add rectangle for each macro (origin at lower-left corner)
                 rect = patches.Rectangle(
                     coords, 
@@ -404,8 +413,8 @@ class MacroPlacementOptimizer:
                         right = min(coords_i[0] + self.macro_width, coords_j[0] + self.macro_width)
                         top = min(coords_i[1] + self.macro_height, coords_j[1] + self.macro_height)
                         
-                        area = (right - left) * (top - bottom)
-                        total_overlap_area += area / 100 # Too large otherwise..
+                        area = (right - left) * (top - bottom)  / 1000 # Too large otherwise..
+                        total_overlap_area += area
             
             stats.append({
                 'iteration': i,
@@ -467,24 +476,36 @@ def main():
     optimizer = MacroPlacementOptimizer(parsed_data, macro_width, macro_height)
     
     # Import force-based placement function from the other file
-    from force_legalize import force_based_placement
+    # from force_legalize import force_based_placement
     
-    # Run multiple iterations of force-based placement
-    NUM_ITERATIONS = 30
-    for i in range(NUM_ITERATIONS):
-        print(f"Running force-based optimization iteration {i+1}/{NUM_ITERATIONS}")
-        
-        overlap_force = 0.8 - i * 0.015
-        spring_force = 0.05 #+ i * 0.015
-        
-        optimizer.modify_placement(
-            force_based_placement,
-            original_data=optimizer.original_data,
-            iterations=40,
-            overlap_force=overlap_force,
-            spring_force=spring_force,
-            halo_size=MACRO_HALO_SIZE
-        )
+    # # Run multiple iterations of force-based placement
+    # overlap_force = 0.8
+    # spring_force = 0.05
+    
+    # for i in range(50):
+    #     print(f"Running force-based iteration {i+1}")
+
+    #     optimizer.modify_placement(
+    #         force_based_placement,
+    #         original_data=optimizer.original_data,
+    #         overlap_force=overlap_force,
+    #         spring_force=spring_force,
+    #         halo_size=MACRO_HALO_SIZE
+    #     )
+
+    from dumb_legalize import legalize_placement
+
+    for i in range(len(parsed_data['macros'])):
+        try:
+            optimizer.modify_placement(
+                legalize_placement,
+                macro_width=macro_width,
+                macro_height=macro_height,
+                macro_halo=MACRO_HALO_SIZE,
+                iteration=i)
+        except KeyboardInterrupt:
+            print("Keyboard interrupt detected. Stopping the optimization process.")
+            break
     
     # Create an animation of all iterations
     optimizer.create_animation(fps=2)

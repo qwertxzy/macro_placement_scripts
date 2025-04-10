@@ -1,4 +1,6 @@
-def force_based_placement(data, original_data=None, overlap_force=0.2, spring_force=0.05, halo_size=0):
+import math
+
+def force_based_placement(data, original_data=None, overlap_force=0.2, spring_force=0.05, halo_size=0, damping_factor=0.1):
     """
     Apply force-based placement modification.
     
@@ -26,8 +28,6 @@ def force_based_placement(data, original_data=None, overlap_force=0.2, spring_fo
     die_area = modified_data['die_area']
     die_lower_left = die_area['lower_left']
     die_upper_right = die_area['upper_right']
-    die_width = die_upper_right[0] - die_lower_left[0]
-    die_height = die_upper_right[1] - die_lower_left[1]
     
     # Get macro names for easier indexing
     macro_names = list(modified_data['macros'].keys())
@@ -72,13 +72,19 @@ def force_based_placement(data, original_data=None, overlap_force=0.2, spring_fo
                 overlap_dist_x = macro_width - abs(coords_i[0] - coords_j[0]) + halo_size * 2
                 overlap_dist_y = macro_height - abs(coords_i[1] - coords_j[1]) + halo_size * 2
                 overlap_dist = min(overlap_dist_x, overlap_dist_y)
-                
+
                 # Apply repulsive force proportional to overlap
                 force_magnitude = overlap_force * overlap_dist
                 
+                # Create vector from these
+                force_vector = direction * force_magnitude
+
+                # Calculate additional damping factor
+                force_damping = -damping_factor * math.sqrt(force_magnitude)
+
                 # Apply forces in opposite directions
-                forces[name_i] -= direction * force_magnitude
-                forces[name_j] += direction * force_magnitude
+                forces[name_i] -= force_vector + force_damping
+                forces[name_j] += force_vector + force_damping
     
     # Calculate spring forces to original positions
     for name in macro_names:

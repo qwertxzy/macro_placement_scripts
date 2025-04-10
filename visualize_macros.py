@@ -7,10 +7,8 @@ import os
 import shutil
 from matplotlib.animation import FuncAnimation
 
-MACRO_HALO_SIZE = 10000
-
 class MacroPlacementOptimizer:
-    def __init__(self, parsed_data, macro_width=100, macro_height=100):
+    def __init__(self, parsed_data, macro_width=100, macro_height=100, macro_halo=0, folder_prefix=""):
         """
         Initialize the optimizer with parsed DEF data.
         
@@ -23,15 +21,17 @@ class MacroPlacementOptimizer:
         self.current_data = copy.deepcopy(parsed_data)
         self.macro_width = macro_width
         self.macro_height = macro_height
+        self.macro_halo = macro_halo
         self.iterations = []
+        self.folder_prefix = folder_prefix
         
         # Initialize the original data as the first iteration
         self.iterations.append(copy.deepcopy(self.original_data))
         
         # Create output directory
-        if os.path.exists('placement_iterations'):
-            shutil.rmtree('placement_iterations')
-        os.makedirs('placement_iterations')
+        if os.path.exists(f'{folder_prefix}_placement_iterations'):
+            shutil.rmtree(f'{folder_prefix}_placement_iterations')
+        os.makedirs(f'{folder_prefix}_placement_iterations')
         
         # Visualize initial state
         self._visualize_current(0)
@@ -124,9 +124,9 @@ class MacroPlacementOptimizer:
 
             # Add another rectangle for each macro representing its halo
             halo_rect = patches.Rectangle(
-                (coords[0] - MACRO_HALO_SIZE, coords[1] - MACRO_HALO_SIZE), 
-                self.macro_width + MACRO_HALO_SIZE * 2, 
-                self.macro_height + MACRO_HALO_SIZE * 2, 
+                (coords[0] - self.macro_halo, coords[1] - self.macro_halo), 
+                self.macro_width + self.macro_halo * 2, 
+                self.macro_height + self.macro_halo * 2, 
                 linewidth=1, 
                 edgecolor='green', 
                 facecolor=color, 
@@ -179,7 +179,7 @@ class MacroPlacementOptimizer:
         
         # Save the plot
         plt.tight_layout()
-        filename = f'placement_iterations/iteration_{iteration_number:03d}.png'
+        filename = f'{self.folder_prefix}_placement_iterations/iteration_{iteration_number:03d}.png'
         plt.savefig(filename, dpi=300)
         plt.close()
         
@@ -329,10 +329,10 @@ class MacroPlacementOptimizer:
             return ax
         
         anim = FuncAnimation(fig, update, frames=len(self.iterations), interval=1000/fps)
-        anim.save('placement_animation.gif', writer='pillow', fps=fps, dpi=300)
+        anim.save(f'{self.folder_prefix}_placement_iterations/placement_animation.gif', writer='pillow', fps=fps, dpi=300)
         plt.close()
         
-        print("Created animation of all iterations: placement_animation.gif")
+        print(f"Created animation of all iterations: {self.folder_prefix}_placement_iterations/placement_animation.gif")
     
     def _highlight_overlaps_for_animation(self, ax, frame):
         """
@@ -448,10 +448,10 @@ class MacroPlacementOptimizer:
         ax2.grid(True)
         
         plt.tight_layout()
-        plt.savefig('overlap_statistics.png', dpi=300)
+        plt.savefig(f'{self.folder_prefix}_placement_iterations/overlap_statistics.png', dpi=300)
         plt.close()
         
-        print("Overlap statistics plot saved as 'overlap_statistics.png'")
+        print(f"Overlap statistics plot saved as '{self.folder_prefix}_placement_iterations/overlap_statistics.png'")
     
     def save_final_result(self):
         """
@@ -471,50 +471,50 @@ def main():
     # Set macro dimensions
     macro_width = 155420
     macro_height = 81200
-    
-    # Initialize the optimizer
-    optimizer = MacroPlacementOptimizer(parsed_data, macro_width, macro_height)
-    
-    # Import force-based placement function from the other file
-    # from force_legalize import force_based_placement
-    
-    # # Run multiple iterations of force-based placement
-    # overlap_force = 0.8
-    # spring_force = 0.05
-    
-    # for i in range(50):
-    #     print(f"Running force-based iteration {i+1}")
+    macro_halo = 10000
 
-    #     optimizer.modify_placement(
-    #         force_based_placement,
-    #         original_data=optimizer.original_data,
-    #         overlap_force=overlap_force,
-    #         spring_force=spring_force,
-    #         halo_size=MACRO_HALO_SIZE
-    #     )
+    # Define ranges for hyperparameters
+    overlap_force_range = [x / 10 for x in range(7, 11, 1)] # 0.7 - 1.0
+    spring_force_range = [x / 100 for x in range(1, 11, 5)] # 0.01 - 0.05
+    damping_factor_range = [x / 10 for x in range(1, 11, 1)] # 0.1 - 1.0
+    
+    for overlap_force in overlap_force_range:
+        for spring_force in spring_force_range:
+            for damping_factor in damping_factor_range:
+                print(f"Running with overlap_force={overlap_force}, spring_force={spring_force}, damping_factor={damping_factor}")
+                
+                # Initialize the optimizer
+                optimizer = MacroPlacementOptimizer(
+                    parsed_data,
+                    macro_width,
+                    macro_height,
+                    macro_halo,
+                    folder_prefix=f"{overlap_force}_{spring_force}_{damping_factor}"
+                    )
+    
+                # Import force-based placement function from the other file
+                from force_legalize import force_based_placement
+                
+                for i in range(50):
+                    print(f"Running force-based iteration {i+1}")
 
-    from dumb_legalize import legalize_placement
+                    optimizer.modify_placement(
+                        force_based_placement,
+                        original_data=optimizer.original_data,
+                        overlap_force=overlap_force,
+                        spring_force=spring_force,
+                        halo_size=macro_halo
+                    )
 
-    for i in range(len(parsed_data['macros'])):
-        try:
-            optimizer.modify_placement(
-                legalize_placement,
-                macro_width=macro_width,
-                macro_height=macro_height,
-                macro_halo=MACRO_HALO_SIZE,
-                iteration=i)
-        except KeyboardInterrupt:
-            print("Keyboard interrupt detected. Stopping the optimization process.")
-            break
     
-    # Create an animation of all iterations
-    optimizer.create_animation(fps=2)
-    
-    # Plot statistics about the optimization process
-    optimizer.plot_overlap_statistics()
-    
-    # Save the final result
-    optimizer.save_final_result()
+                # Create an animation of all iterations
+                optimizer.create_animation(fps=2)
+                
+                # Plot statistics about the optimization process
+                optimizer.plot_overlap_statistics()
+                
+                # Save the final result
+                # optimizer.save_final_result()
 
 if __name__ == '__main__':
     main()

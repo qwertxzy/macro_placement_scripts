@@ -1,0 +1,4 @@
+macro_width = 155420
+macro_height = 81200
+
+0.7 0.01 0.4 seems to be most promising

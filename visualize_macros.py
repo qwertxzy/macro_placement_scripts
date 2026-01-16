@@ -5,6 +5,7 @@ import numpy as np
 import copy
 import os
 import shutil
+import gc
 from matplotlib.animation import FuncAnimation
 
 class MacroPlacementOptimizer:
@@ -48,7 +49,7 @@ class MacroPlacementOptimizer:
         new_data = copy.deepcopy(self.current_data)
         
         # Apply the modification function
-        modified_data = modification_func(new_data, **kwargs)
+        modified_data, velocities = modification_func(new_data, **kwargs)
         
         # Store the modified data
         self.current_data = modified_data
@@ -59,7 +60,11 @@ class MacroPlacementOptimizer:
         # Visualize this iteration
         self._visualize_current(len(self.iterations)-1)
         
-        return modified_data
+        # Periodic garbage collection to prevent memory buildup
+        if len(self.iterations) % 10 == 0:
+            gc.collect()
+        
+        return modified_data, velocities
     
     def _visualize_current(self, iteration_number):
         """
@@ -181,7 +186,9 @@ class MacroPlacementOptimizer:
         plt.tight_layout()
         filename = f'{self.folder_prefix}_placement_iterations/iteration_{iteration_number:03d}.png'
         plt.savefig(filename, dpi=300)
-        plt.close()
+        plt.close('all')
+        plt.clf()
+        gc.collect()
         
         print(f"Saved iteration {iteration_number} to {filename}")
     
@@ -330,7 +337,10 @@ class MacroPlacementOptimizer:
         
         anim = FuncAnimation(fig, update, frames=len(self.iterations), interval=1000/fps)
         anim.save(f'{self.folder_prefix}_placement_iterations/placement_animation.gif', writer='pillow', fps=fps, dpi=300)
-        plt.close()
+        plt.close('all')
+        plt.clf()
+        del anim, fig
+        gc.collect()
         
         print(f"Created animation of all iterations: {self.folder_prefix}_placement_iterations/placement_animation.gif")
     
@@ -449,7 +459,10 @@ class MacroPlacementOptimizer:
         
         plt.tight_layout()
         plt.savefig(f'{self.folder_prefix}_placement_iterations/overlap_statistics.png', dpi=300)
-        plt.close()
+        plt.close('all')
+        plt.clf()
+        del fig, ax1, ax2
+        gc.collect()
         
         print(f"Overlap statistics plot saved as '{self.folder_prefix}_placement_iterations/overlap_statistics.png'")
     
@@ -474,10 +487,15 @@ def main():
     macro_halo = 10000
 
     # Define ranges for hyperparameters
-    overlap_force_range = [x / 10 for x in range(7, 11, 1)] # 0.7 - 1.0
-    spring_force_range = [x / 100 for x in range(1, 11, 5)] # 0.01 - 0.05
-    damping_factor_range = [x / 10 for x in range(1, 11, 1)] # 0.1 - 1.0
-    
+    # overlap_force_range = [x / 10 for x in range(7, 11, 1)] # 0.7 - 1.0
+    # spring_force_range = [x / 100 for x in range(1, 11, 5)] # 0.01 - 0.05
+    # damping_factor_range = [x / 10 for x in range(1, 11, 1)] # 0.1 - 1.0
+
+    # Shit params
+    overlap_force_range = [0.3]
+    spring_force_range = [0.05]
+    damping_factor_range = [0.1, 0.2, 0.3, 0.5, 0.6]
+
     for overlap_force in overlap_force_range:
         for spring_force in spring_force_range:
             for damping_factor in damping_factor_range:
@@ -495,15 +513,20 @@ def main():
                 # Import force-based placement function from the other file
                 from force_legalize import force_based_placement
                 
+                # Init velocities to None to get started
+                velocities = None
+
                 for i in range(50):
                     print(f"Running force-based iteration {i+1}")
 
-                    optimizer.modify_placement(
+                    _, velocities = optimizer.modify_placement(
                         force_based_placement,
                         original_data=optimizer.original_data,
                         overlap_force=overlap_force,
                         spring_force=spring_force,
-                        halo_size=macro_halo
+                        damping_factor=damping_factor,
+                        halo_size=macro_halo,
+                        velocities=velocities
                     )
 
     
@@ -515,6 +538,10 @@ def main():
                 
                 # Save the final result
                 # optimizer.save_final_result()
+                
+                # Clean up optimizer to free memory
+                del optimizer
+                gc.collect()
 
 if __name__ == '__main__':
     main()

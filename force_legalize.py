@@ -3,12 +3,13 @@ import numpy as np
 
 def force_based_placement(
     data,
-    original_data=None,
-    overlap_force=0.2,
-    spring_force=0.05,
-    damping_factor=0.0,
-    halo_size=0,
-    velocities=None
+    original_data,
+    overlap_force,
+    spring_force,
+    boundary_force,
+    damping_factor,
+    halo_size,
+    velocities
 ):
     """
     Iteration-based force legalization with velocity damping (Erleben-style).
@@ -29,6 +30,7 @@ def force_based_placement(
     die_area = modified_data['die_area']
     die_lower_left = die_area['lower_left']
     die_upper_right = die_area['upper_right']
+    center_die = (np.array(die_lower_left) + np.array(die_upper_right)) / 2
 
     macro_names = list(modified_data['macros'].keys())
     n_macros = len(macro_names)
@@ -67,7 +69,9 @@ def force_based_placement(
                 overlap_dist_y = macro_height - abs(coords_i[1] - coords_j[1]) + halo_size * 2
                 overlap_dist = min(overlap_dist_x, overlap_dist_y)
 
-                force_vector = direction * overlap_force * overlap_dist
+                # Not needed anymore, just make overlap_force larger
+                # force_vector = direction * overlap_force * overlap_dist
+                force_vector = direction * overlap_dist
 
                 forces[name_i] -= force_vector
                 forces[name_j] += force_vector
@@ -82,6 +86,19 @@ def force_based_placement(
 
         if distance > 1e-6:
             forces[name] += spring_force * direction
+
+    # Boundary push forces (from center of area to the edge)
+    for name in macro_names:
+        current_pos = np.array(modified_data['macros'][name]['coordinates']) + np.array([macro_width / 2, macro_height / 2])
+
+        direction = current_pos - center_die
+        distance = np.linalg.norm(direction)
+
+        # Additional factor which is smallest when at boundary and larger when near center
+        max_distance = np.linalg.norm((np.array(die_upper_right) - np.array(die_lower_left)) / 2)
+        boundary_factor = (max_distance - distance) / max_distance
+
+        forces[name] += boundary_force * direction * boundary_factor
 
     # --- DAMPED ITERATION UPDATE ---
     for name in macro_names:

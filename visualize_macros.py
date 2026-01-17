@@ -7,6 +7,7 @@ import os
 import shutil
 import gc
 from matplotlib.animation import FuncAnimation
+from itertools import product
 
 class MacroPlacementOptimizer:
     def __init__(self, parsed_data, macro_width=100, macro_height=100, macro_halo=0, folder_prefix=""):
@@ -491,57 +492,57 @@ def main():
     # spring_force_range = [x / 100 for x in range(1, 11, 5)] # 0.01 - 0.05
     # damping_factor_range = [x / 10 for x in range(1, 11, 1)] # 0.1 - 1.0
 
-    # Shit params
-    overlap_force_range = [0.3]
-    spring_force_range = [0.05]
-    damping_factor_range = [0.1, 0.2, 0.3, 0.5, 0.6]
+    # Test overlap influence
+    overlap_force_range = [0.5]
+    spring_force_range = [0.1]
+    damping_factor_range = [0.7]
+    boundary_force_range = [0.02]
 
-    for overlap_force in overlap_force_range:
-        for spring_force in spring_force_range:
-            for damping_factor in damping_factor_range:
-                print(f"Running with overlap_force={overlap_force}, spring_force={spring_force}, damping_factor={damping_factor}")
-                
-                # Initialize the optimizer
-                optimizer = MacroPlacementOptimizer(
-                    parsed_data,
-                    macro_width,
-                    macro_height,
-                    macro_halo,
-                    folder_prefix=f"{overlap_force}_{spring_force}_{damping_factor}"
-                    )
-    
-                # Import force-based placement function from the other file
-                from force_legalize import force_based_placement
-                
-                # Init velocities to None to get started
-                velocities = None
+    for overlap_force, spring_force, damping_factor, boundary_force in product(overlap_force_range, spring_force_range, damping_factor_range, boundary_force_range):
+        print(f"Running with overlap_force={overlap_force}, spring_force={spring_force}, damping_factor={damping_factor}, boundary_force={boundary_force}")
+        
+        # Initialize the optimizer
+        optimizer = MacroPlacementOptimizer(
+            parsed_data,
+            macro_width,
+            macro_height,
+            macro_halo,
+            folder_prefix=f"{overlap_force}_{spring_force}_{damping_factor}_{boundary_force}"
+            )
 
-                for i in range(50):
-                    print(f"Running force-based iteration {i+1}")
+        # Import force-based placement function from the other file
+        from force_legalize import force_based_placement
+        
+        # Init velocities to None to get started
+        velocities = None
 
-                    _, velocities = optimizer.modify_placement(
-                        force_based_placement,
-                        original_data=optimizer.original_data,
-                        overlap_force=overlap_force,
-                        spring_force=spring_force,
-                        damping_factor=damping_factor,
-                        halo_size=macro_halo,
-                        velocities=velocities
-                    )
+        for i in range(50):
+            print(f"Running force-based iteration {i+1}")
 
-    
-                # Create an animation of all iterations
-                optimizer.create_animation(fps=2)
-                
-                # Plot statistics about the optimization process
-                optimizer.plot_overlap_statistics()
-                
-                # Save the final result
-                # optimizer.save_final_result()
-                
-                # Clean up optimizer to free memory
-                del optimizer
-                gc.collect()
+            _, velocities = optimizer.modify_placement(
+                force_based_placement,
+                original_data=optimizer.original_data,
+                overlap_force=overlap_force,
+                spring_force=spring_force,
+                boundary_force=boundary_force,
+                damping_factor=damping_factor,
+                halo_size=macro_halo,
+                velocities=velocities
+            )
+
+
+        # Create an animation of all iterations
+        optimizer.create_animation(fps=2)
+        
+        # Plot statistics about the optimization process
+        optimizer.plot_overlap_statistics()
+        
+        # Save the final result
+        # optimizer.save_final_result()
+        
+        # Clean up optimizer to free memory
+        del optimizer
+        gc.collect()
 
 if __name__ == '__main__':
     main()

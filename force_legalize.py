@@ -96,7 +96,8 @@ def force_based_placement(
 
         # Additional factor which is smallest when at boundary and larger when near center
         max_distance = np.linalg.norm((np.array(die_upper_right) - np.array(die_lower_left)) / 2)
-        boundary_factor = (max_distance - distance) / max_distance
+        # pow by 2 to have stronger fall off
+        boundary_factor = ((max_distance - distance) / max_distance) ** 2
 
         forces[name] += boundary_force * direction * boundary_factor
 

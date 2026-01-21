@@ -81,6 +81,24 @@ if not stat_runs:
 else:
     print(f"Found {len(stat_runs)} matching runs for the given parameters.")
 
+# Calculate which run hit 0 overlaps the fastest
+fastest_run = None
+fastest_iterations = float('inf')
+for run in stat_runs:
+    for stat in run['stats']:
+        if stat['overlap_count'] == 0 and stat['iteration'] < fastest_iterations:
+            fastest_iterations = stat['iteration']
+            fastest_run = run
+
+if fastest_run:
+    print("Fastest run to reach 0 overlaps:")
+    print(f"  Overlap Force: {fastest_run['overlap_force']}")
+    print(f"  Spring Force: {fastest_run['spring_force']}")
+    print(f"  Damping Factor: {fastest_run['damping_factor']}")
+    print(f"  Boundary Force: {fastest_run['boundary_force']}")
+    print(f"  Iterations to 0 overlaps: {fastest_iterations}")
+
+
 # Setup plots
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), sharex=True)
 

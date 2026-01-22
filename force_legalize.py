@@ -96,8 +96,10 @@ def force_based_placement(
 
         # Additional factor which is smallest when at boundary and larger when near center
         max_distance = np.linalg.norm((np.array(die_upper_right) - np.array(die_lower_left)) / 2)
-        # pow by 2 to have stronger fall off
-        boundary_factor = ((max_distance - distance) / max_distance) ** 2
+        # pow by 3 to have stronger fall off
+        # TODO: maybe even 4? its still quite large, but so is the spring force really
+        # Works up to 0.1 like this
+        boundary_factor = ((max_distance - distance) / max_distance) ** 3
 
         forces[name] += boundary_force * direction * boundary_factor
 

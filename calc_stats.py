@@ -189,9 +189,9 @@ def main():
 
     # Define ranges for hyperparameters:
     overlap_force_range = [x / 10 for x in range(1, 16, 1)]  # 0.1 - 1.5
-    spring_force_range = [x / 100 for x in range(1, 51, 5)]  # 0.01 - 0.5
+    spring_force_range = [x / 100 for x in range(0, 41, 5)]  # 0.00 - 0.4
     damping_factor_range = [x / 10 for x in range(0, 11, 1)]  # 0.0 - 1.0
-    boundary_force_range = [x / 100 for x in range(1, 51, 5)]  # 0.01 - 0.5
+    boundary_force_range = [x / 100 for x in range(0, 12, 1)]  # 0.01 - 0.12
 
     # Generate all parameter combinations
     parameter_combinations = list(product(

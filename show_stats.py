@@ -84,6 +84,9 @@ else:
 # Calculate which run hit 0 overlaps the fastest
 fastest_run = None
 fastest_iterations = float('inf')
+
+stat_runs.sort(key=lambda i: (i["overlap_force"], i["spring_force"], i["damping_factor"], i["boundary_force"]))
+
 for run in stat_runs:
     for stat in run['stats']:
         if stat['overlap_count'] == 0 and stat['iteration'] < fastest_iterations:

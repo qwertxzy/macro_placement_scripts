@@ -1,0 +1,1202 @@
+{
+  "die_area": {
+    "lower_left": [
+      0,
+      0
+    ],
+    "upper_right": [
+      2209230,
+      2209230
+    ]
+  },
+  "macros": {
+    "i_cache_subsystem.i_icache.sram_block_0__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1900160,
+        1354818
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_0__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1894778,
+        1575241
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_0__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1895604,
+        1282052
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_0__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2048326,
+        1566730
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_0__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1754615,
+        1495183
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_0__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1898520,
+        2045990
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_0__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1601807,
+        1491569
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_0__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2049159,
+        2052204
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_0__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1590365,
+        867290
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_0__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1902842,
+        914347
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_0__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050876,
+        1006199
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050231,
+        1146878
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1890226,
+        1649703
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1902966,
+        1209391
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2049478,
+        1497084
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1756486,
+        1126872
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050637,
+        1913243
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1752676,
+        1200970
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2040479,
+        1982278
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1743740,
+        953517
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1901701,
+        1062047
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_1__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050402,
+        1076423
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1742471,
+        1347341
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050230,
+        1427004
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1749206,
+        1273650
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2049507,
+        1357257
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1747734,
+        1567754
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2042639,
+        1843725
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1738160,
+        1421596
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2049346,
+        1774545
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1745577,
+        877772
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1902999,
+        840301
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_2__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2051264,
+        935262
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050140,
+        1287460
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2048911,
+        1635554
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050563,
+        1217457
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2048837,
+        1705057
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1900191,
+        1501252
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1897570,
+        2120860
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1892010,
+        1427694
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2048939,
+        2120860
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1746648,
+        1028015
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1903663,
+        988715
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_icache.sram_block_3__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1902163,
+        1135374
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        599706,
+        395067
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        454341,
+        303900
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        300365,
+        520075
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        157303,
+        228757
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1596136,
+        388376
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1435536,
+        157808
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1284500,
+        158869
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        620943,
+        248628
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1902516,
+        613605
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1903479,
+        468211
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_0__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1899490,
+        240826
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        599638,
+        321144
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        477630,
+        230832
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        210690,
+        447110
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        169599,
+        154685
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1449997,
+        242370
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1603386,
+        83115
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1139737,
+        163509
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        487360,
+        156022
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1876662,
+        689020
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1902986,
+        541149
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_1__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1901515,
+        168427
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        596799,
+        540410
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        306451,
+        373971
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        159466,
+        375412
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        10260,
+        283462
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1743107,
+        373893
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1750989,
+        82892
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1331324,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        448359,
+        82967
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050724,
+        864206
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2051217,
+        437397
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_2__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2049706,
+        224746
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        586415,
+        612805
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        304441,
+        301151
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        10260,
+        356857
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        10260,
+        209699
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1743373,
+        446650
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1742618,
+        155676
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1189599,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        441620,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050388,
+        793313
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2051412,
+        508937
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_3__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050920,
+        153772
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        589503,
+        467891
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        330082,
+        227764
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        155407,
+        302340
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        10260,
+        131038
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1754383,
+        301363
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1594012,
+        155287
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1409371,
+        84449
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        634189,
+        101130
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1903735,
+        766854
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1901821,
+        386248
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_4__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1901190,
+        86375
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        453592,
+        376833
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        339102,
+        154180
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        10279,
+        431172
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        10260,
+        19227
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1747085,
+        228835
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1761121,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1075453,
+        87931
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        642222,
+        174748
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2051005,
+        722153
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2049996,
+        295424
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_5__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2050911,
+        82991
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        368145,
+        446629
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        298372,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        10260,
+        505709
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        154310,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1605080,
+        302699
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1618172,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1046204,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        584193,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2051110,
+        579766
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1901788,
+        313077
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_6__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2051412,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__data_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        448591,
+        516853
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__data_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        300408,
+        82714
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__data_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        153835,
+        518754
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__data_sram.genblk1_0__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        151690,
+        82589
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__data_sram.genblk1_1__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1597121,
+        228125
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__data_sram.genblk1_1__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1473819,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__data_sram.genblk1_1__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1265465,
+        85023
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__data_sram.genblk1_1__i_ram/macro_mem_3": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        725425,
+        33983
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__tag_sram.genblk1_0__i_ram/macro_mem_0": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2051390,
+        650781
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__tag_sram.genblk1_0__i_ram/macro_mem_1": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        2051268,
+        366187
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    },
+    "i_cache_subsystem.i_nbdcache/sram_block_7__tag_sram.genblk1_0__i_ram/macro_mem_2": {
+      "type": "fakeram45_256x16",
+      "coordinates": [
+        1904841,
+        11200
+      ],
+      "status": "PLACED",
+      "orientation": "N"
+    }
+  }
+}

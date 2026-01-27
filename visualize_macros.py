@@ -9,6 +9,8 @@ import gc
 from matplotlib.animation import FuncAnimation
 from itertools import product
 
+MAX_ITER = 100
+
 class MacroPlacementOptimizer:
     def __init__(self, parsed_data, macro_width=100, macro_height=100, macro_halo=0, folder_prefix=""):
         """
@@ -58,8 +60,9 @@ class MacroPlacementOptimizer:
         # Store a copy of this iteration
         self.iterations.append(copy.deepcopy(modified_data))
         
-        # Visualize this iteration
-        self._visualize_current(len(self.iterations)-1)
+        # Visualize last iteration
+        if self.iterations == MAX_ITER - 1:
+            self._visualize_current(len(self.iterations)-1)
         
         # Periodic garbage collection to prevent memory buildup
         if len(self.iterations) % 10 == 0:
@@ -479,7 +482,7 @@ class MacroPlacementOptimizer:
 # Example usage demonstration
 def main():
     # Load the parsed DEF data from a JSON file
-    with open('shitty_macros.json', 'r') as f:
+    with open('ariane133.json', 'r') as f:
         parsed_data = json.load(f)
     
     # Set macro dimensions
@@ -494,9 +497,9 @@ def main():
 
     # Test overlap influence
     overlap_force_range = [0.5]
-    spring_force_range = [0.1]
-    damping_factor_range = [0.7]
-    boundary_force_range = [0.02]
+    damping_factor_range = [0.8]
+    spring_force_range = [0.02]
+    boundary_force_range = [0.0]
 
     for overlap_force, spring_force, damping_factor, boundary_force in product(overlap_force_range, spring_force_range, damping_factor_range, boundary_force_range):
         print(f"Running with overlap_force={overlap_force}, spring_force={spring_force}, damping_factor={damping_factor}, boundary_force={boundary_force}")
@@ -516,7 +519,7 @@ def main():
         # Init velocities to None to get started
         velocities = None
 
-        for i in range(50):
+        for i in range(MAX_ITER):
             print(f"Running force-based iteration {i+1}")
 
             _, velocities = optimizer.modify_placement(
@@ -532,7 +535,7 @@ def main():
 
 
         # Create an animation of all iterations
-        optimizer.create_animation(fps=2)
+        optimizer.create_animation(fps=4)
         
         # Plot statistics about the optimization process
         optimizer.plot_overlap_statistics()

@@ -55,11 +55,11 @@ def parse_def_file(filename: str) -> tuple[dict, dict]:
     }
 
 def main():
-    filename = 'shitty_macros.def'  # Replace with your DEF file path
+    filename = 'ariane133.def'  # Replace with your DEF file path
     parsed_data = parse_def_file(filename)
     
     # Save parsed data to JSON for visualization
-    with open('shitty_macros.json', 'w') as f:
+    with open('ariane133.json', 'w') as f:
         json.dump(parsed_data, f, indent=2)
     
     # Print summary

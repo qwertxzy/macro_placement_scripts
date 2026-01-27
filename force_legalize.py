@@ -61,16 +61,28 @@ def force_based_placement(
                 norm = np.linalg.norm(direction)
 
                 if norm < 1e-6:
+                    # Centers are identical - use horizontal direction as fallback
                     direction = np.array([1.0, 0.0])
                 else:
                     direction /= norm
+                    
+                    # Add perpendicular perturbation for perfectly aligned macros
+                    # Scale by 1/spring_force to overcome spring pulling them back
+                    perturb_strength = 1.0 / spring_force if spring_force > 0 else 5.0
+                    
+                    if abs(direction[0]) < 1e-6:
+                        # Vertically aligned - add horizontal component
+                        direction = np.array([perturb_strength, direction[1]])
+                        direction /= np.linalg.norm(direction)
+                    elif abs(direction[1]) < 1e-6:
+                        # Horizontally aligned - add vertical component
+                        direction = np.array([direction[0], perturb_strength])
+                        direction /= np.linalg.norm(direction)
 
                 overlap_dist_x = macro_width - abs(coords_i[0] - coords_j[0]) + halo_size * 2
                 overlap_dist_y = macro_height - abs(coords_i[1] - coords_j[1]) + halo_size * 2
                 overlap_dist = min(overlap_dist_x, overlap_dist_y)
 
-                # Not needed anymore, just make overlap_force larger
-                # force_vector = direction * overlap_force * overlap_dist
                 force_vector = direction * overlap_dist
 
                 forces[name_i] -= force_vector
@@ -97,7 +109,6 @@ def force_based_placement(
         # Additional factor which is smallest when at boundary and larger when near center
         max_distance = np.linalg.norm((np.array(die_upper_right) - np.array(die_lower_left)) / 2)
         # pow by 3 to have stronger fall off
-        # TODO: maybe even 4? its still quite large, but so is the spring force really
         # Works up to 0.1 like this
         boundary_factor = ((max_distance - distance) / max_distance) ** 3
 

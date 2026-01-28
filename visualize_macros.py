@@ -9,6 +9,7 @@ import gc
 from matplotlib.animation import FuncAnimation
 from itertools import product
 
+JSON_NAME = 'ariane133.json'
 MAX_ITER = 100
 
 class MacroPlacementOptimizer:
@@ -482,7 +483,7 @@ class MacroPlacementOptimizer:
 # Example usage demonstration
 def main():
     # Load the parsed DEF data from a JSON file
-    with open('ariane133.json', 'r') as f:
+    with open(JSON_NAME, 'r') as f:
         parsed_data = json.load(f)
     
     # Set macro dimensions
@@ -496,9 +497,9 @@ def main():
     # damping_factor_range = [x / 10 for x in range(1, 11, 1)] # 0.1 - 1.0
 
     # Test overlap influence
-    overlap_force_range = [0.5]
-    damping_factor_range = [0.8]
-    spring_force_range = [0.02]
+    overlap_force_range = [0.9]
+    damping_factor_range = [0.5]
+    spring_force_range = [0.01]
     boundary_force_range = [0.0]
 
     for overlap_force, spring_force, damping_factor, boundary_force in product(overlap_force_range, spring_force_range, damping_factor_range, boundary_force_range):

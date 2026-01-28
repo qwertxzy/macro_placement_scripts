@@ -44,19 +44,36 @@ def force_based_placement(
     # Overlap repulsion
     for i in range(n_macros):
         name_i = macro_names[i]
-        coords_i = np.array(modified_data['macros'][name_i]['coordinates']) - (halo_size, halo_size)
+        coords_i = np.array(modified_data['macros'][name_i]['coordinates'])
+        
+        # Create bloated rectangle for i
+        rect_i_min = coords_i - halo_size
+        rect_i_max = coords_i + np.array([macro_width, macro_height]) + halo_size
+        center_i = (rect_i_min + rect_i_max) / 2
 
         for j in range(i + 1, n_macros):
             name_j = macro_names[j]
-            coords_j = np.array(modified_data['macros'][name_j]['coordinates']) - (halo_size, halo_size)
+            coords_j = np.array(modified_data['macros'][name_j]['coordinates'])
+            
+            # Create bloated rectangle for j
+            rect_j_min = coords_j - halo_size
+            rect_j_max = coords_j + np.array([macro_width, macro_height]) + halo_size
+            center_j = (rect_j_min + rect_j_max) / 2
 
-            overlap_x = abs(coords_i[0] - coords_j[0]) < macro_width + halo_size * 2
-            overlap_y = abs(coords_i[1] - coords_j[1]) < macro_height + halo_size * 2
+            # Check for rectangle intersection
+            overlap_x = rect_i_max[0] > rect_j_min[0] and rect_j_max[0] > rect_i_min[0]
+            overlap_y = rect_i_max[1] > rect_j_min[1] and rect_j_max[1] > rect_i_min[1]
 
             if overlap_x and overlap_y:
-                center_i = coords_i + np.array([macro_width / 2, macro_height / 2])
-                center_j = coords_j + np.array([macro_width / 2, macro_height / 2])
+                # Calculate intersection rectangle
+                overlap_min = np.maximum(rect_i_min, rect_j_min)
+                overlap_max = np.minimum(rect_i_max, rect_j_max)
+                overlap_size = overlap_max - overlap_min
+                
+                # Overlap distance is the minimum of width and height of intersection
+                overlap_dist = min(overlap_size[0], overlap_size[1])
 
+                # Get direction from center i to center j
                 direction = center_j - center_i
                 norm = np.linalg.norm(direction)
 
@@ -79,11 +96,7 @@ def force_based_placement(
                         direction = np.array([direction[0], perturb_strength])
                         direction /= np.linalg.norm(direction)
 
-                overlap_dist_x = macro_width - abs(coords_i[0] - coords_j[0]) + halo_size * 2
-                overlap_dist_y = macro_height - abs(coords_i[1] - coords_j[1]) + halo_size * 2
-                overlap_dist = min(overlap_dist_x, overlap_dist_y)
-
-                force_vector = direction * overlap_dist
+                force_vector = direction * overlap_dist * overlap_force
 
                 forces[name_i] -= force_vector
                 forces[name_j] += force_vector
@@ -101,25 +114,27 @@ def force_based_placement(
 
     # Boundary push forces (from center of area to the edge)
     for name in macro_names:
-        current_pos = np.array(modified_data['macros'][name]['coordinates']) + np.array([macro_width / 2, macro_height / 2])
+        # Use non-bloated bbox center for boundary forces
+        current_pos = np.array(modified_data['macros'][name]['coordinates'])
+        current_center = current_pos + np.array([macro_width / 2, macro_height / 2])
 
-        direction = current_pos - center_die
+        direction = current_center - center_die
         distance = np.linalg.norm(direction)
 
         # Additional factor which is smallest when at boundary and larger when near center
         max_distance = np.linalg.norm((np.array(die_upper_right) - np.array(die_lower_left)) / 2)
         # pow by 3 to have stronger fall off
-        # Works up to 0.1 like this
         boundary_factor = ((max_distance - distance) / max_distance) ** 3
 
         forces[name] += boundary_force * direction * boundary_factor
 
     # --- DAMPED ITERATION UPDATE ---
     for name in macro_names:
-        velocities[name] = (1.0 - damping_factor) * velocities[name] + overlap_force * forces[name]
+        velocities[name] = (1.0 - damping_factor) * velocities[name] + forces[name]
 
         new_pos = np.array(modified_data['macros'][name]['coordinates']) + velocities[name]
 
+        # Clip to die area (without halo consideration in clipping)
         new_pos[0] = max(die_lower_left[0], min(die_upper_right[0] - macro_width, new_pos[0]))
         new_pos[1] = max(die_lower_left[1], min(die_upper_right[1] - macro_height, new_pos[1]))
 

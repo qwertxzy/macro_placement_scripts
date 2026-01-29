@@ -1,6 +1,48 @@
 import copy
 import numpy as np
 
+def clip_macro_position(coords, macro_width, macro_height, halo, die_area):
+    """
+    Clip macro position to ensure macro + halo stays within die boundaries.
+    Matches C++ clipInstBoundingBox logic.
+    
+    Args:
+        coords: [x, y] current position (origin/lower-left corner)
+        macro_width, macro_height: macro dimensions
+        halo: halo width
+        die_area: dict with 'lower_left' and 'upper_right'
+    
+    Returns:
+        Clipped [x, y] coordinates
+    """
+    core_min_x = die_area['lower_left'][0]
+    core_min_y = die_area['lower_left'][1]
+    core_max_x = die_area['upper_right'][0]
+    core_max_y = die_area['upper_right'][1]
+    
+    new_x = coords[0]
+    new_y = coords[1]
+    
+    # Create bloated bounding box (origin + dimensions + halo on all sides)
+    bloated_min_x = coords[0] - halo
+    bloated_min_y = coords[1] - halo
+    bloated_max_x = coords[0] + macro_width + halo
+    bloated_max_y = coords[1] + macro_height + halo
+    
+    # Clip X axis (if-elif, not both)
+    if bloated_min_x < core_min_x:
+        new_x = core_min_x + halo
+    elif bloated_max_x > core_max_x:
+        new_x = core_max_x - macro_width - halo
+    
+    # Clip Y axis (if-elif, not both)
+    if bloated_min_y < core_min_y:
+        new_y = core_min_y + halo
+    elif bloated_max_y > core_max_y:
+        new_y = core_max_y - macro_height - halo
+    
+    return np.array([new_x, new_y])
+
 def force_based_placement(
     data,
     original_data,
@@ -98,6 +140,8 @@ def force_based_placement(
 
                 force_vector = direction * overlap_dist * overlap_force
 
+                # print(f"{name_i=} / {name_j=} / {coords_i=} / {coords_j=} / {overlap_size=} / {overlap_dist=} / direction: {center_j - center_i} / direction after normalize: {direction} / {force_vector=}")
+
                 forces[name_i] -= force_vector
                 forces[name_j] += force_vector
 
@@ -132,15 +176,12 @@ def force_based_placement(
     for name in macro_names:
         velocities[name] = (1.0 - damping_factor) * velocities[name] + forces[name]
 
+        # print(f"{name} : {velocities[name]}")
+
         new_pos = np.array(modified_data['macros'][name]['coordinates']) + velocities[name]
 
-        # Clip to die area (without halo consideration in clipping)
-        new_pos[0] = max(die_lower_left[0], min(die_upper_right[0] - macro_width, new_pos[0]))
-        new_pos[1] = max(die_lower_left[1], min(die_upper_right[1] - macro_height, new_pos[1]))
+        new_pos = clip_macro_position(new_pos, macro_width, macro_height, halo_size, modified_data['die_area'])
 
-        modified_data['macros'][name]['coordinates'] = (
-            int(new_pos[0]),
-            int(new_pos[1])
-        )
+        modified_data['macros'][name]['coordinates'] = (int(new_pos[0]), int(new_pos[1]))
 
     return modified_data, velocities

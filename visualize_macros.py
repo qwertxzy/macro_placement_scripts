@@ -9,8 +9,15 @@ import gc
 from matplotlib.animation import FuncAnimation
 from itertools import product
 
+from force_legalize import clip_macro_position
+
 JSON_NAME = 'ariane133.json'
-MAX_ITER = 100
+MAX_ITER = 125
+
+# Set macro dimensions
+MACRO_WIDTH = 155420
+MACRO_HEIGHT = 81200
+MACRO_HALO = 20000
 
 class MacroPlacementOptimizer:
     def __init__(self, parsed_data, macro_width=100, macro_height=100, macro_halo=0, folder_prefix=""):
@@ -22,14 +29,27 @@ class MacroPlacementOptimizer:
             macro_width (int): Width of each macro in DEF units
             macro_height (int): Height of each macro in DEF units
         """
-        self.original_data = copy.deepcopy(parsed_data)
-        self.current_data = copy.deepcopy(parsed_data)
         self.macro_width = macro_width
         self.macro_height = macro_height
         self.macro_halo = macro_halo
         self.iterations = []
         self.folder_prefix = folder_prefix
         
+        # Create working copy
+        self.current_data = copy.deepcopy(parsed_data)
+
+        # Clip all macros to ensure they (with halo) fit within die area
+        for name in self.current_data['macros']:
+            coords = np.array(self.current_data['macros'][name]['coordinates'])
+            
+            # Clip using same logic as C++ clipInstBoundingBox
+            clipped_coords = clip_macro_position(coords, macro_width, macro_height, macro_halo, self.current_data['die_area'])
+            
+            self.current_data['macros'][name]['coordinates'] = (int(clipped_coords[0]), int(clipped_coords[1]))
+        
+        # Save clipped positions as original data for spring forces
+        self.original_data = copy.deepcopy(self.current_data)
+
         # Initialize the original data as the first iteration
         self.iterations.append(copy.deepcopy(self.original_data))
         
@@ -403,7 +423,6 @@ class MacroPlacementOptimizer:
         for i, iteration_data in enumerate(self.iterations):
             overlap_count = 0
             total_overlap_area = 0
-            
             macro_names = list(iteration_data['macros'].keys())
             n_macros = len(macro_names)
             
@@ -411,24 +430,31 @@ class MacroPlacementOptimizer:
                 name_i = macro_names[n]
                 coords_i = np.array(iteration_data['macros'][name_i]['coordinates'])
                 
+                # Create bloated rectangle for i
+                rect_i_min = coords_i - MACRO_HALO
+                rect_i_max = coords_i + np.array([MACRO_WIDTH, MACRO_HEIGHT]) + MACRO_HALO
+                
                 for j in range(n+1, n_macros):
                     name_j = macro_names[j]
                     coords_j = np.array(iteration_data['macros'][name_j]['coordinates'])
                     
-                    # Check for overlap
-                    overlap_x = (abs(coords_i[0] - coords_j[0]) < self.macro_width)
-                    overlap_y = (abs(coords_i[1] - coords_j[1]) < self.macro_height)
+                    # Create bloated rectangle for j
+                    rect_j_min = coords_j - MACRO_HALO
+                    rect_j_max = coords_j + np.array([MACRO_WIDTH, MACRO_HEIGHT]) + MACRO_HALO
+                    
+                    # Check for rectangle intersection
+                    overlap_x = rect_i_max[0] > rect_j_min[0] and rect_j_max[0] > rect_i_min[0]
+                    overlap_y = rect_i_max[1] > rect_j_min[1] and rect_j_max[1] > rect_i_min[1]
                     
                     if overlap_x and overlap_y:
                         overlap_count += 1
                         
-                        # Calculate overlap area
-                        left = max(coords_i[0], coords_j[0])
-                        bottom = max(coords_i[1], coords_j[1])
-                        right = min(coords_i[0] + self.macro_width, coords_j[0] + self.macro_width)
-                        top = min(coords_i[1] + self.macro_height, coords_j[1] + self.macro_height)
+                        # Calculate intersection rectangle area
+                        overlap_min = np.maximum(rect_i_min, rect_j_min)
+                        overlap_max = np.minimum(rect_i_max, rect_j_max)
+                        overlap_size = overlap_max - overlap_min
                         
-                        area = (right - left) * (top - bottom)  / 1000 # Too large otherwise..
+                        area = overlap_size[0] * overlap_size[1] / 1000  # Divide to prevent overflow
                         total_overlap_area += area
             
             stats.append({
@@ -445,6 +471,9 @@ class MacroPlacementOptimizer:
         """
         stats = self.get_overlap_statistics()
         
+        with open(f"{self.folder_prefix}_placement_iterations/overlap_statistics.json", 'w') as f:
+            json.dump(stats, f, indent=2)
+
         iterations = [s['iteration'] for s in stats]
         overlap_counts = [s['overlap_count'] for s in stats]
         overlap_areas = [s['total_overlap_area'] for s in stats]
@@ -485,11 +514,6 @@ def main():
     # Load the parsed DEF data from a JSON file
     with open(JSON_NAME, 'r') as f:
         parsed_data = json.load(f)
-    
-    # Set macro dimensions
-    macro_width = 155420
-    macro_height = 81200
-    macro_halo = 10000
 
     # Define ranges for hyperparameters
     # overlap_force_range = [x / 10 for x in range(7, 11, 1)] # 0.7 - 1.0
@@ -499,7 +523,7 @@ def main():
     # Test overlap influence
     overlap_force_range = [0.9]
     damping_factor_range = [0.5]
-    spring_force_range = [0.01]
+    spring_force_range = [0.001]
     boundary_force_range = [0.0]
 
     for overlap_force, spring_force, damping_factor, boundary_force in product(overlap_force_range, spring_force_range, damping_factor_range, boundary_force_range):
@@ -508,9 +532,9 @@ def main():
         # Initialize the optimizer
         optimizer = MacroPlacementOptimizer(
             parsed_data,
-            macro_width,
-            macro_height,
-            macro_halo,
+            MACRO_WIDTH,
+            MACRO_HEIGHT,
+            MACRO_HALO,
             folder_prefix=f"{overlap_force}_{spring_force}_{damping_factor}_{boundary_force}"
             )
 
@@ -530,13 +554,13 @@ def main():
                 spring_force=spring_force,
                 boundary_force=boundary_force,
                 damping_factor=damping_factor,
-                halo_size=macro_halo,
+                halo_size=MACRO_HALO,
                 velocities=velocities
             )
 
 
         # Create an animation of all iterations
-        optimizer.create_animation(fps=4)
+        # optimizer.create_animation(fps=4)
         
         # Plot statistics about the optimization process
         optimizer.plot_overlap_statistics()
